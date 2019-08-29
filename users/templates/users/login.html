@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="container row">
+        <form method="POST" class='input-field col s6 offset-s3' >
+            {% csrf_token %}
+            <fieldset>
+                <legend>
+                    Log In:
+                </legend>
+                {{form.as_p}}
+            </fieldset>
+              <button class="btn waves-effect waves-light green accent-2" type="submit" name="action">Log In
+
+              </button>
+            <div>
+                <small>
+                    Make an account  <a class='blue-text' href="{% url 'users:register' %}">Register</a>
+                </small>
+            </div>
+        </form>
+
+    </div>
+{% endblock  %}

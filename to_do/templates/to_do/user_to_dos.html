@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block content%}
+
+      <nav>
+        <div class="nav-wrapper">
+          <div class="col s12 {{user.userinfo.color}}">
+            <a href="{% url 'to_do:index' %}" class="breadcrumb">{{user.userinfo.current_group}}</a>
+            <a href="{% url 'to_do:user_to_do_list' %}" class="breadcrumb">{{ user.username }}</a>
+            <a href="{% url 'to_do:to_do_create' %}" class="breadcrumb">Add a to-do</a>
+          </div>
+        </div>
+      </nav>
+
+
+      <div class="mycontainer">
+        <div class='smallcontainer'>
+          <div class='todoheading'>
+            <h3 style="display: inline-block;"> To Do </h3>
+            <a style="margin: 10px 10px 10px 10px;" href="{% url 'to_do:to_do_create'  %}" class="btn-floating waves-effect waves-light green accent-2"><i class="material-icons">add</i></a>
+          </div>
+
+         {% for post in user_posts %}
+            <div class = 'column'>
+                <div class="todocard card grey lighten-1">
+                  <div class="card-content white-text">
+                    <span class="card-title">{{post.title}}</span>
+                    <p>{{post.content}}</p>
+                  </div>
+                  <div class="card-action grey lighten-2">
+                    <a class='blue-text hoverable' href="{% url 'to_do:in_progress' post.pk %}">Begin work</a>
+                    <a class='blue-text hoverable' href="{% url 'to_do:to_do_update' post.pk %}">Edit</a>
+                    <a class='blue-text hoverable' href="{% url 'to_do:to_do_delete' post.pk %}">Delete</a>
+                    <small class='right'>Added by: {{post.user}}</small>
+                  </div>
+                </div>
+              </div>
+        {%endfor%}
+            </div>
+
+            <div class='smallcontainer'>
+          <h3>In Progress</h3>
+
+         {% for post in user_posts_in_progress %}
+            <div class = 'column'>
+                <div class="todocard card {{post.user.userinfo.color}}">
+                  <div class="card-content white-text">
+                    <span class="card-title">{{post.title}}</span>
+                    <p>{{post.content}}</p>
+                  </div>
+                   <div class="card-action grey lighten-2">
+                    <a class='blue-text hoverable' href="{% url 'to_do:completed' post.pk %}">Completed</a>
+                    <a class='blue-text hoverable' href="{% url 'to_do:to_do_update' post.pk %}">Edit</a>
+                    <a class='blue-text hoverable' href="{% url 'to_do:to_do_delete' post.pk %}">Delete</a>
+                    <small class='right'>{{post.user}}</small>
+                  </div>
+            </div>
+              </div>
+        {%endfor%}
+            </div>
+
+             <div class='smallcontainer'>
+          <h3>Completed</h3>
+
+         {% for post in user_posts_completed %}
+            <div class = 'column'>
+                <div class="todocard card green accent-2">
+                  <div class="card-content black-text">
+                      <span class="card-title">{{post.title}}</span>
+                      <p>{{post.content}}</p>
+                    </div>
+                    <div class="card-action {{post.user.userinfo.color}}">
+
+                  </div>
+              </div>
+              </div>
+            {%endfor%}
+            </div>
+
+      </div>
+
+
+
+{% endblock %}

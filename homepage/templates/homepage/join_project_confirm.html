@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    {%if is_full%}
+      <h3>This project is full<h3>
+    {%else%}
+      <h3 class='center'>Are you sure you want to join {{new_project}}?</h3>
+      <div class="center container row">
+          <form method="POST" action='/projects/{{new_project.pk}}/confirm_join/' class='input-field col s6 offset-s3' >
+              {% csrf_token %}
+              <br>
+                <button class="btn waves-effect waves-light green accent-2" type="submit" name="action">Join
+                  <i class="material-icons right">send</i>
+                </button>
+                <br><br>
+                <a class="waves-effect waves-light red btn" href="{%url 'homepage:index' %}"><i class="material-icons right">cancel</i>Cancel</a>
+              <br><br>
+          </form>
+      </div>
+    {%endif%}
+{% endblock  %}

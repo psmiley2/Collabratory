@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="container row">
+        <form method="POST" class='input-field col s6 offset-s3' >
+            {% csrf_token %}
+            <fieldset>
+                <legend>
+                    Sign Up:
+                </legend>
+                <div class="switch">
+              {{form.as_p}}
+                    <p>
+                      <label>
+                        <input type="checkbox" class="filled-in" id="is_teacher" name="is_teacher"/>
+                        <span>Are you a teacher?</span>
+                      </label>
+                    </p>
+
+            </fieldset>
+            <br>
+              <button class="btn waves-effect waves-light green accent-2" type="submit" name="action">Submit
+                <i class="material-icons right">send</i>
+              </button>
+            <br><br>
+            <div>
+                <small>
+                    Already have an account?  <a href='{% url "login"%}'>Sign In</a>
+                </small>
+            </div>
+        </form>
+
+    </div>
+{% endblock  %}

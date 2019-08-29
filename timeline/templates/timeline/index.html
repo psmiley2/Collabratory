@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content%}
+
+<div class='timeline'>
+  <h3>Timeline</h3>
+</div>
+  <br>
+
+
+  {% for post in group_posts %}
+  <div class='timelinecontainer'>
+
+        <div class = 'timelineposition'>
+          <div class="small hoverable col m4 s6">
+            {%if post.is_in_progress%}
+              <div class=" card {{post.user.userinfo.color}}">
+            {%else%}
+              <div class="card grey lighten-1">
+            {%endif%}
+              <div class="card-content white-text">
+                <p>{{post.title}}</p>
+              </div>
+              <div class="card-action">
+                <p>Due: {{post.due_date}}</p>
+                <small class='right'>{{post.user}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      {%endfor%}
+
+
+
+
+{% endblock %}

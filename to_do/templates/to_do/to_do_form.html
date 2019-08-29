@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <nav>
+        <div class="nav-wrapper">
+          <div class="col s12 {{user.userinfo.color}}">
+            <a href="{% url 'to_do:index' %}" class="breadcrumb">{{user.userinfo.current_group}}</a>
+            <a href="{% url 'to_do:user_to_do_list' %}" class="breadcrumb">{{ user.username }}</a>
+            <a href="{% url 'to_do:to_do_create' %}" class="breadcrumb">Add a to-do</a>
+          </div>
+        </div>
+      </nav>
+
+
+    {%if user.userinfo.current_group%}
+    <div class="container row">
+        <form method="POST" class='input-field col s6 offset-s3' >
+            {% csrf_token %}
+            <fieldset>
+                <legend>Add a to-do</legend>
+                {{form.as_p}}
+                <label for='datepicker'>Due Date:</label>
+                <input type="date" name="datepicker" id='datepicker'>
+            </fieldset>
+            <br>
+              <button class="btn waves-effect waves-light green accent-2" type="submit" name="action">Submit
+                <i class="material-icons right">send</i>
+              </button>
+            <br><br>
+            <a class="waves-effect waves-light red btn" href="{%url 'to_do:index' %}"><i class="material-icons right">cancel</i>Cancel</a>
+        </form>
+
+    </div>
+    {%else%}
+      <h3>Join a Group!</h3>
+    {%endif%}
+
+
+
+
+
+
+{% endblock  %}

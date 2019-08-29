@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block content%}
+
+<div class='timeline'>
+  <h3>Conference:</h3>
+</div>
+
+<div id='forumcontainer' class='forumcontainer'>
+
+  {%if user.userinfo.current_group%}
+
+    {% for post in group_posts %}
+    {%if post.user == user %}
+      <div class='forumcardcontainer'>
+      <div class=" small col m4 s6">
+          <div class="userforumcard card {{post.user.userinfo.color}}">
+            <div class="card-content flow-text white-text">
+              <a href="{% url 'forum:comment_create' post.pk %}" class="left btn-floating halfway-fab waves-effect waves-light green accent-2"><i class="material-icons">insert_comment</i></a>
+              <p class='flow-text'>{{post.content}}</p>
+              {%if post.image %}
+                <a href="{%url 'forum:make_fullscreen' post.pk%}">
+                  <img src="{{ post.image_thumbnail.url}}" alt="{{ post.content }}">
+                </a>
+              {%endif%}
+            </div>
+            <div class="card-action">
+              <a href="{% url 'forum:post_update' post.pk %}">Edit</a>
+              <a href="{% url 'forum:post_delete' post.pk %}">Delete</a>
+              <small class='right'>{{post.user}}</small>
+              <small class='right'>{{post.time_posted}} - </small>
+            </div>
+      </div>
+    </div>
+  </div>
+  {% for comment in post.comments_associated_with_post.all %}
+      <div class=' forumcardcontainer'>
+          <div class="userforumcomment small col m2 s3">
+            <div class="card {{comment.user.userinfo.color}}">
+              <div class="card-content white-text">
+                <p class='flow-text'>{{comment.content}}</p>
+              </div>
+              <div class="card-action">
+                <a href="{% url 'forum:comment_delete' comment.pk %}">Delete</a>
+                <small class='right'>{{comment.user}}</small>
+                <small class='right'>{{comment.time_posted}} - </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      {%endfor%}
+
+    {% else %}
+      <div class='forumcardcontainer'>
+      <div class="small col m4 s6">
+          <div class="forumcard card {{post.user.userinfo.color}}">
+            <div class="card-content white-text">
+              <a href="{% url 'forum:comment_create' post.pk %}" class="btn-floating halfway-fab waves-effect waves-light green accent-2"><i class="material-icons">insert_comment</i></a>
+              <p class='flow-text'>{{post.content}}</p>
+              {%if post.image %}
+                <a href="{%url 'forum:make_fullscreen' post.pk%}">
+                  <img src="{{ post.image_thumbnail.url}}" alt="{{ post.content }}">
+                </a>
+              {%endif%}
+            </div>
+            <div class="card-action">
+              <a href="{% url 'forum:post_update' post.pk %}">Edit</a>
+              <a href="{% url 'forum:post_delete' post.pk %}">Delete</a>
+              <small class='right'>{{post.user}}</small>
+              <small class='right'>{{post.time_posted}} - </small>
+            </div>
+      </div>
+      </div>
+    </div>
+    {% for comment in post.comments_associated_with_post.all %}
+      <div class=' forumcardcontainer'>
+          <div class="forumcomment small col m2 s3">
+            <div class="card {{comment.user.userinfo.color}}">
+              <div class="card-content white-text">
+                <p class='flow-text'>{{comment.content}}</p>
+              </div>
+              <div class="card-action">
+                <a href="{% url 'forum:comment_delete' comment.pk %}">Delete</a>
+                <small class='right'>{{comment.user}}</small>
+                <small class='right'>{{comment.time_posted}} - </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      {%endfor%}
+    {%endif%}
+
+
+
+
+    {%endfor%}
+
+  </div>
+
+      <div  class="row">
+          <form method="POST" class='input-field col s6 offset-s3' enctype='multipart/form-data'>
+              {% csrf_token %}
+              <fieldset>
+                  <legend>
+                      Add a Post:
+                  </legend>
+                  {{form.as_p}}
+              </fieldset>
+              <br>
+                <button class="btn waves-effect waves-light green accent-2" type="submit" name="action ">Post
+                  <i class="material-icons right">send</i>
+                </button>
+              <br><br>
+          </form>
+
+      </div>
+      <script type="text/javascript">
+          document.getElementById('forumcontainer').scrollBy(0, 100000);
+      </script>
+    {%else%}
+      <h3>Join a Group!</h3>
+    {%endif%}
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{%block content%}
+
+
+{%if project in user.userinfo.student_projects.all or project.teacher == user%}
+    <div class='timeline'>
+        <h3>{{project.title}}</h3>
+    </div>
+    <div class='tournamentcode'>
+        <form method="POST" action='/add_group/{{project.id}}/'>
+            {% csrf_token %}
+            <input type="text" id="new_group" name="new_group" placeholder="Add a group">
+            <input id='findprojectbutton' type="submit" id="add_group" name="add_group" value='Add'>
+        </form>
+
+    </div>
+    <div class='mycontainer'>
+    <div class='detailpagesmallcontainer'>
+        <h3>Groups</h3>
+        <div class='detailtable'>
+            <br>
+            {% for group in project.projects_associated_with_group.all %}
+                <table class='centered'>
+                <thead>
+                  <tr>
+                      <th style="color: #69f0ae; border: 1px solid #69f0ae; ">{{group.title}}</th>
+                  </tr>
+                </thead>
+                <tbody >
+                {% for student in group.list_of_groups_that_the_student_is_in.all %}
+                  <tr>
+                    <td>
+                        {{student}}
+                        {% if user.userinfo.is_teacher %}
+                        <div class='right '>
+                             <form method="POST" action='/{{ student.pk }}/remove_from_group/{{ group.pk }}/'>
+                                {% csrf_token %}
+                                <input id='findprojectbutton' type="submit" id="remove_from_group" name="remove_from_group" value='Remove From Group'>
+                            </form>
+
+                        </div>
+                        {% endif %}
+                    </td>
+                </tr>
+                {%endfor%}
+                </tbody>
+                {% if student_group == null and not user.userinfo.is_teacher and group.current_group_student_count <= project.max_group_size%}
+                    <form method="POST" action='/{{ project.id }}/join_group/{{ group.id }}/'>
+                        {% csrf_token %}
+                        <input  id='findprojectbutton' type="submit" id="join_group" name="join_group" value='Join Group'>
+                    </form>
+                {% endif %}
+                {% if user.userinfo.is_teacher %}
+                <div class='center-align'>
+
+                    <a class=' red-text hoverable' href="{% url 'homepage:group_delete' group.pk %}">Delete Group</a>
+                    <form  style='display: inline;' method="POST" action='/{{ project.id }}/view_group/{{ group.id }}/'>
+                        {% csrf_token %}
+                        <input id='findprojectbutton' type="submit" id="view_group" name="view_group" value='View Group'>
+                    </form>
+                </div>
+                {% endif %}
+                </table><hr>
+                <br><br>
+            {%endfor%}
+            </div>
+        </div>
+        <div class='detailpagesmallcontainer'>
+            <h3>All Students</h3>
+            <div class='detailtable'>
+            <table class='centered'>
+                <tbody >
+            {% for group in project.projects_associated_with_group.all %}
+                {% for student in group.list_of_groups_that_the_student_is_in.all %}
+
+                  <tr>
+                    <td>
+                        {{student}}
+                {%if user.userinfo.is_teacher%}
+                <div class='right'>
+                     <form method="POST" action='/{{ student.pk }}/remove_from_project/{{ group.pk }}/'>
+                        {% csrf_token %}
+                        <input id='findprojectbutton' type="submit" id="remove_from_project" name="remove_from_project" value='Remove From Project'>
+                    </form>
+                </div>
+                {%endif%}
+                    </td>
+
+                </tr>
+                {%endfor%}
+            {%endfor%}
+                </tbody>
+
+    </div>
+{%else%}
+</table>
+</div>
+    <h3>You have not yet joined this project</h3>
+{%endif%}
+
+{%endblock%}

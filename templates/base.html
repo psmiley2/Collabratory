@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}GroupWork{% endblock %}</title>
+    <!--- Loads path to static files-->
+    {% load static %}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <script type = "text/javascript"
+         src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel='stylesheet' type='text/css' href="{% static 'groupwork/style.css' %}">
+    <script src="{% static 'groupwork/my_scripts.js' %}"></script>
+</head>
+
+<body>
+  <nav class='green accent-2'>
+    <div id='navbarrr' class="nav-wrapper">
+      <a href="{% url 'homepage:index' %}" class="left brand-logo"><i class="material-icons">group_work</i>Group Work</a>
+
+      <div class='left hide-on-med-and-down'>
+      {%if not user.userinfo.current_group == null%}
+        <a href='{%url "homepage:project_detail" user.userinfo.current_group.project.pk%}' class="center brand-logo">{%if user.userinfo.is_teacher%}Currently Viewing -> {%endif%}{{user.userinfo.current_group.project}}: {{user.userinfo.current_group}}</a>
+      {%endif%}
+      </div>
+      <ul class="right hide-on-small-only">
+        <li><a href="{% url 'timeline:index' %}" title="Timeline"><i class="material-icons">timeline</i></a></li>
+        <li><a href="{% url 'to_do:index' %}" title='ToDo'><i class="material-icons">view_list</i></a></li>
+        <li><a href="{% url 'forum:index' %}" title='Forum'><i class="material-icons">message</i></a></li>
+        <li><a href="{% url 'homepage:directions' %}" title="Directions"><i class="material-icons">info_outline</i></a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'users:profile' %}" title="Profile"><i class="material-icons" >power_settings_new</i></a></li>
+        {%else%}
+        <li><a href="{% url 'login' %}" title="Login"><i class="material-icons">account_box</i></a></li>
+        {%endif%}
+      </ul>
+
+
+    </div>
+
+    <div class="bottom_navbar">
+      <ul class="right hide-on-med-and-up">
+        <li><a href="{% url 'timeline:index' %}" title="Timeline"><i class="black-text material-icons">timeline</i></a></li>
+        <li><a href="{% url 'to_do:index' %}" title='ToDo'><i class="black-text material-icons">view_list</i></a></li>
+        <li><a href="{% url 'forum:index' %}" title='Forum'><i class="black-text material-icons">message</i></a></li>
+        <li><a href="{% url 'homepage:directions' %}" title="Directions"><i class="black-text material-icons">info_outline</i></a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'users:profile' %}" title="Profile"><i class="black-text material-icons" >power_settings_new</i></a></li>
+        {%else%}
+        <li><a href="{% url 'login' %}" title="Login"><i class="black-text material-icons">account_box</i></a></li>
+        {%endif%}
+      </ul>
+    </div>
+
+    <div class='black-text'>
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="{ %  static 'groupwork/my_scripts.js' % }" type="text/javascript"></script>
+
+</body>
+</html>

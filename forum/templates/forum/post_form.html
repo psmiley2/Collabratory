@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <div class="container row">
+        <form method="POST" class='input-field col s6 offset-s3' >
+            {% csrf_token %}
+            <fieldset>
+                <legend>
+                    Add a Post:
+                </legend>
+                {{form.as_p}}
+            </fieldset>
+            <br>
+              <button class="btn waves-effect waves-light green accent-2" type="submit" name="action">Update
+                <i class="material-icons right">send</i>
+              </button>
+            <br><br>
+            <a class="waves-effect waves-light red btn" href="{%url 'forum:index' %}"><i class="material-icons right">cancel</i>Cancel</a>
+        </form>
+
+    </div>
+{% endblock  %}

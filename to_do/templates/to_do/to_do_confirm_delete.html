@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <nav>
+        <div class="nav-wrapper">
+          <div class="col s12 {{user.userinfo.color}}">
+            <a href="{% url 'to_do:index' %}" class="breadcrumb">{{user.userinfo.current_group}}</a>
+            <a href="{% url 'to_do:user_to_do_list' %}" class="breadcrumb">{{ user.username }}</a>
+            <a href="{% url 'to_do:to_do_create' %}" class="breadcrumb">Add a to-do</a>
+          </div>
+        </div>
+      </nav>
+        <form class='center-align' method='POST'>
+            {% csrf_token %}
+            <div class="input-field col s6 offset-s3 center">
+                <h3>Delete: {{ object.title }}?</h3>
+                <br>
+                <br>
+            </div>
+            <button class="red accent-2 waves-effect waves-light btn-large input-field col s2 offset-s5" type="submit" name="action">delete<i class="material-icons left">delete</i></button>
+
+            <a href="{% url 'to_do:index' %}" class=" btn green accent-2 waves-effect waves-light btn-large input-field "><i class="material-icons left">undo</i>Cancel</a>
+        </form>
+{% endblock  %}

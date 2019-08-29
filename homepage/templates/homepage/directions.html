@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{%block content%}
+
+<div class='timeline'>
+    <h3>{{user.userinfo.current_group.project}} directions:</h3>
+</div>
+
+<div class='directionscontainer flow-text'>
+    <div class='textcontainer'>
+    {{user.userinfo.current_group.project.directions}}
+    </div>
+</div>
+{%endblock%}

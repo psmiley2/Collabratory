@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{%block content%}
+
+{%if logged_in %}
+  {% if user.userinfo.is_teacher%}
+  <div class='mycontainer'>
+      <div class="teacherpagesmallcontainer row">
+          <form method="POST" class='input-field col s6 offset-s3' >
+              {% csrf_token %}
+              <fieldset>
+                  <legend>
+                      Add a Project:
+                  </legend>
+                  {{form.as_p}}
+              </fieldset>
+              <br>
+                <button class="btn waves-effect waves-light green accent-2" type="submit" name="action">Submit
+                  <i class="material-icons right">send</i>
+                </button>
+              <br><br>
+          </form>
+
+      </div>
+
+      {% if user.project_set.all %}
+      <div class='teacherpagesmallcontainer'>
+      {% for project in user.project_set.all %}
+        {%if not project.is_completed%}
+          <div class='container'>
+              <div class="small hoverable col m4 s6">
+                <div class="card_hover">
+                <div class="card {{user.userinfo.color}}">
+                  <div class="card-content white-text">
+                    <span class="card-title">{{project.title}}</span>
+                  <a class="btn-floating halfway-fab waves-effect waves-light green accent-2" href="{% url 'homepage:project_detail' project.id %}"><i class="material-icons">arrow_forward</i>project.group_code</a>
+                  </div>
+                  <div class="card-action">
+                    <a href="{%url 'homepage:project_completed' project.pk %}">Completed</a>
+                    <a href="{% url 'homepage:project_update' project.pk %}">Edit</a>
+                    <a href="{% url 'homepage:project_delete' project.pk %}">Delete</a>
+                  </div>
+                </div>
+                </div>
+            </div>
+          </div>
+          {%else%}
+          <div class='container'>
+            <div class="">
+              <div class="small hoverable col m4 s6">
+                <div class="card_hover">
+                <div class="card green accent-2">
+                  <div class="card-content white-text">
+                    <span class="card-title">{{project.title}}</span>
+                    <a class="btn-floating halfway-fab waves-effect waves-light green accent-2" href="{% url 'homepage:project_detail' project.id %}"><i class="material-icons">arrow_forward</i>project.group_code</a>
+                  </div>
+                  <div class="card-action">
+                    <a href="{%url 'homepage:project_restore' project.pk %}">Restore</a>
+                    <a href="{% url 'homepage:project_delete' project.pk %}">Delete</a>
+                  </div>
+                </div>
+                </div>
+            </div>
+            </div>
+          </div>
+          {%endif%}
+      {%endfor%}
+    </div>
+
+      {% else %}
+          <h2>{{user}} has no projects</h2>
+      {% endif %}
+
+</div>
+  {%else%}
+
+
+    <div class='tournamentcode'>
+      <form action="/find_project/" method="POST">
+          {% csrf_token %}
+          <label for="project_code">Join a Project: </label>
+          <input id="project_code" type="text" name="project_code" placeholder = "Enter a project code">
+          <input id='findprojectbutton' type="submit" value="Join">
+      </form>
+    </div>
+      {% if code %}
+          <h3 style="color: red">'{{code}}' is an invalid code</h3>
+      {%endif%}
+
+      <table class='homepagetable highlight centered'>
+        <thead>
+        <tr>
+        <th>
+          {%if user.userinfo.student_projects.all %}
+            <h4><u>Projects:</u></h4>
+          {%endif%}
+        </th>
+      </tr>
+        </thead>
+        <tbody >
+        {%for user_project in user.userinfo.student_projects.all%}
+        {%if not user_project.is_completed%}
+          <tr><td><a class='grey-text darken-2' href="{%url 'homepage:project_detail' user_project.pk%}">{{user_project}}</a></td></tr>
+        {%endif%}
+        {%endfor%}
+        </tbody>
+      </table>
+  {%endif%}
+
+
+{%else%}
+
+  <h1 class='center green-text text-accent-2'>GroupWork</h1>
+  <h4 class='container center'>
+    A classroom tool to take the confusion out of group projects
+  </h4>
+  <div class='container center'>
+    <a href="{% url 'login' %}" class="waves-effect waves-light btn green accent-2"><i class="material-icons right">person</i>login</a>
+    <a href="{% url 'users:register' %}" class="waves-effect waves-light btn green accent-2"><i class="material-icons right">add</i>register</a>
+  </div>
+
+
+
+{%endif%}
+
+{%endblock%}

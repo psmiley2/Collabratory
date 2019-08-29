@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        <div class="input-field col s6 offset-s3 center">
+            <h3 class="{{user.userinfo.color}}-text">{{user.username}}</h3>
+
+            <a href="{% url 'logout' %}" class=" red waves-effect waves-light btn-large input-field col s2 offset-s5"><i class="material-icons left">power_settings_new</i>Log Out</a>
+        </div>
+            <br>
+            <br>
+    <div class="container row">
+
+        <h4 class="hide-on-med-and-down center">Choose a user color: </h4>
+
+
+        {%for color_ in all_colors%}
+          <form action="/register/change_color/{{color_}}/" method="POST" class="center row">
+            {% csrf_token %}
+                <button class="waves-effect {{color_}} waves-light btn" name='color_' type='submit'>{{color_}}</button>
+          </form>
+        {%endfor%}
+
+    </div>
+{% endblock  %}

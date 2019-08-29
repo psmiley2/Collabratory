@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container row">
+        <form method='POST'>
+            {% csrf_token %}
+            <div class="input-field col s6 offset-s3 center">
+                <h3>Delete: {{ object.title }}?</h3>
+                <br>
+                <br>
+            </div>
+            <button class="red accent-2 waves-effect waves-light btn-large input-field col s2 offset-s5" type="submit" name="action">delete<i class="material-icons left">delete</i></button>
+
+            <a href="{% url 'homepage:index' %}" class=" green accent-2 waves-effect waves-light btn-large input-field col s2 offset-s5"><i class="material-icons left">undo</i>Cancel</a>
+        </form>
+    </div>
+{% endblock  %}
