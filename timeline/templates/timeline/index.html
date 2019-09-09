@@ -11,7 +11,7 @@
   {% for post in group_posts %}
   <div class='timelinecontainer'>
 
-        <div class = 'timelineposition'>
+        <div style="line-height: 20px;" class = 'timelineposition'>
           <div class="small hoverable col m4 s6">
             {%if post.is_in_progress%}
               <div class=" card {{post.user.userinfo.color}}">
@@ -21,9 +21,9 @@
               <div class="card-content white-text">
                 <p>{{post.title}}</p>
               </div>
-              <div class="card-action">
-                <p>Due: {{post.due_date}}</p>
-                <small class='right'>{{post.user}}</small>
+              <div style="line-height: 5px; display: inline-block; " class="card-action">
+                <p>Due: {{post.due_date}} </p>
+                <p class=' black-text '>{{post.user}}</p>
               </div>
             </div>
           </div>
