@@ -3,6 +3,7 @@
 
 {% block content %}
     <div class="container row">
+        <div class="forms">
         <form method="POST" class='input-field col s6 offset-s3' >
             {% csrf_token %}
             <fieldset>
@@ -10,14 +11,17 @@
                     Sign Up:
                 </legend>
                 <div class="switch">
-              {{form.as_p}}
+                    <div style="font-weight: lighter; font-size: 70%;">
+                      {{form.as_p}}
+
                     <p>
                       <label>
                         <input type="checkbox" class="filled-in" id="is_teacher" name="is_teacher"/>
                         <span>Are you a teacher?</span>
                       </label>
                     </p>
-
+                </div>
+                </div>
             </fieldset>
             <br>
               <button class="btn waves-effect waves-light green accent-2" type="submit" name="action">Submit
@@ -25,11 +29,11 @@
               </button>
             <br><br>
             <div>
-                <small>
-                    Already have an account?  <a href='{% url "login"%}'>Sign In</a>
+                <small >
+                    Already have an account?  <a style="color: blue;" href='{% url "login"%}'>Sign In</a>
                 </small>
             </div>
         </form>
-
+    </div>
     </div>
 {% endblock  %}

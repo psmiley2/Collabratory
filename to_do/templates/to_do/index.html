@@ -2,13 +2,13 @@
 
 {% block content%}
 
-      <nav>
-        <div class="nav-wrapper">
-          <div class="col s12 {{user.userinfo.color}}">
-            <a href="{% url 'to_do:index' %}" class="breadcrumb">{{user.userinfo.current_group}}</a>
-            <a href="{% url 'to_do:user_to_do_list' %}" class="breadcrumb">{{ user.username }}</a>
-            <a href="{% url 'to_do:to_do_create' %}" class="breadcrumb">Add a to-do</a>
-          </div>
+       <nav>
+        <div class="nav-wrapper {{user.userinfo.color}}">
+          <ul id="nav-mobile" class="left hide-on-med-and-down">
+            <li><a href="{% url 'to_do:index' %}"><div style="font-weight: bold;">{{user.userinfo.current_group}}</div></a></li>
+            <li><a href="{% url 'to_do:user_to_do_list' %}">{{ user.username }}</a></li>
+            <li><a href="{% url 'to_do:to_do_create' %}">Add a to-do</a></li>
+          </ul>
         </div>
       </nav>
 

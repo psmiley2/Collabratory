@@ -6,18 +6,22 @@
   <div class='mycontainer'>
       <div class="teacherpagesmallcontainer row">
           <form method="POST" class='input-field col s6 offset-s3' >
+            <div class="forms">
               {% csrf_token %}
               <fieldset>
                   <legend>
                       Add a Project:
                   </legend>
-                  {{form.as_p}}
+
+                    {{form.as_p}}
+
               </fieldset>
               <br>
                 <button class="btn waves-effect waves-light green accent-2" type="submit" name="action">Submit
                   <i class="material-icons right">send</i>
                 </button>
               <br><br>
+              </div>
           </form>
 
       </div>
@@ -73,7 +77,6 @@
 </div>
   {%else%}
 
-
     <div class='tournamentcode'>
       <form action="/find_project/" method="POST">
           {% csrf_token %}
@@ -82,6 +85,7 @@
           <input id='findprojectbutton' type="submit" value="Join">
       </form>
     </div>
+    <div id="projectList">
       {% if code %}
           <h3 style="color: red">'{{code}}' is an invalid code</h3>
       {%endif%}
@@ -104,6 +108,7 @@
         {%endfor%}
         </tbody>
       </table>
+    </div>
   {%endif%}
 
 
@@ -117,7 +122,6 @@
     <a href="{% url 'login' %}" class="waves-effect waves-light btn green accent-2"><i class="material-icons right">person</i>login</a>
     <a href="{% url 'users:register' %}" class="waves-effect waves-light btn green accent-2"><i class="material-icons right">add</i>register</a>
   </div>
-
 
 
 {%endif%}

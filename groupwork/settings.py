@@ -9,10 +9,12 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
-#admin password is groupwork123, username is peter
 
 import os
+import json
 
+# with open('/etc/config.json') as config_file:
+#     config = json.load(config_file)
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -26,7 +28,7 @@ SECRET_KEY = 'ajkm$yh1d37pik#q6k+4og=_m$qzigdbrvr35y1@#89bl4w12m'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -124,12 +126,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
-
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
-    '/Desktop/groupwork/groupwork/static/',
 ]
+STATIC_URL = '/static/'
+
+#STATICFILES_DIRS = [
+#    os.path.join(BASE_DIR, "static"),
+#    '/home/pdsmiley/groupwork/groupwork/static/',
+#]
 
 LOGIN_REDIRECT_URL = '/'
 

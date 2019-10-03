@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>{% block title %}GroupWork{% endblock %}</title>
+    <title>{% block title %}Collabratory{% endblock %}</title>
     <!--- Loads path to static files-->
     {% load static %}
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -24,7 +24,7 @@
 <body>
   <nav class='green accent-2'>
     <div id='navbarrr' class="nav-wrapper">
-      <a href="{% url 'homepage:index' %}" class="left brand-logo"><i class="material-icons">group_work</i>Group Work</a>
+      <a href="{% url 'homepage:index' %}" class="left brand-logo"> Collabratory</a>
 
       <div class='left hide-on-med-and-down'>
       {%if not user.userinfo.current_group == null%}

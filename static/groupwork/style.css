@@ -23,9 +23,11 @@ h4{
     border: 3px solid #69f0ae;
     border-radius: 15px;
     width: 50%;
-    margin: 5% auto;
+    margin: 0 auto;
+    margin-top: 3%;
     padding: 1%;
     overflow: hidden;
+    line-height: 100%;
 }
 
 .homepagetable{
@@ -115,6 +117,7 @@ a{
 .forumcardcontainer{
     width: 100%;
     display: inline-block;
+    line-height: 100%;
 }
 
 .userforumcard{
@@ -197,6 +200,7 @@ img{
 
 form {
     min-width: 250px;
+    line-height: 100%;
 }
 
 .spacing{
@@ -214,4 +218,23 @@ button{
 .material-icons {
     position: relative;
     top: -8px; /*Change this to adjust the icon*/
+}
+
+.forms {
+    margin-top: 5%;
+    line-height: 100%;
+}
+
+#projectList{
+    margin: 0;
+    padding: 0;
+    line-height: 100%;
+}
+
+.container{
+    margin-top: 3%;
+}
+
+.flow-text{
+    font-size: 100%;
 }

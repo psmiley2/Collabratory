@@ -9,14 +9,17 @@
                 <legend>
                     Log In:
                 </legend>
-                {{form.as_p}}
+                <div class="forms">
+                    {{form.as_p}}
+                </div>
             </fieldset>
               <button class="btn waves-effect waves-light green accent-2" type="submit" name="action">Log In
 
               </button>
             <div>
                 <small>
-                    Make an account  <a class='blue-text' href="{% url 'users:register' %}">Register</a>
+                    Make an account  <a class='blue-text' href="{% url 'users:register' %}">Register</a><br>
+                    Forgot your password?  <a class='blue-text' href="{% url 'password_reset' %}">Reset Password</a>
                 </small>
             </div>
         </form>

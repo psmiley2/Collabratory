@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="forms">
         <div class="input-field col s6 offset-s3 center">
             <h3 class="{{user.userinfo.color}}-text">{{user.username}}</h3>
 
@@ -10,15 +11,18 @@
             <br>
     <div class="container row">
 
-        <h4 class="hide-on-med-and-down center">Choose a user color: </h4>
+        <h4 style="color: black;" class="hide-on-med-and-down center">Choose a user color: </h4>
 
 
-        {%for color_ in all_colors%}
-          <form action="/register/change_color/{{color_}}/" method="POST" class="center row">
-            {% csrf_token %}
-                <button class="waves-effect {{color_}} waves-light btn" name='color_' type='submit'>{{color_}}</button>
-          </form>
-        {%endfor%}
 
+            {%for color_ in all_colors%}
+              <form action="/register/change_color/{{color_}}/" method="POST" class="center row">
+                {% csrf_token %}
+                    <button class="waves-effect {{color_}} waves-light btn" name='color_' type='submit'>{{color_}}</button>
+              </form>
+            {%endfor%}
+
+
+    </div>
     </div>
 {% endblock  %}
